@@ -1,0 +1,190 @@
+<head>
+    <link rel="stylesheet"  href="{{  url_for('static', filename='pure.css') }}">
+</head>
+
+<style>
+#now
+{
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    padding: 10px;
+    display: inline;
+    float: left;
+    margin: 20px;
+    margin-top: 200px;
+    font-size: 38px;
+    width: 600px;
+    height: 600px;
+    background: #0fb8ad; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* Standard syntax */
+}
+
+.other
+{
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px;
+    margin-top: 250px;
+    display: inline;
+    float: right;
+    font-size: 28px;
+    width: 500px;
+    height: 500px;
+    background: #1fc8db; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(-141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(-141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(-141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(-141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* Standard syntax */
+}
+</style>
+
+<div class="page">
+    <div id="weather">
+        <div id="now">
+            <p id="TimeNow">Inte uppdaterad</p>
+            <p id="TempNow">Inte uppdaterad</p>
+            <img id="ImageNow" src="{{  url_for('static', filename='Sun.png') }}"/>
+        </div>
+
+        <div class="other">
+            <p id="TimeAfternoon">Inte uppdaterad</p>
+            <p id="TempAfternoon">Inte uppdaterad</p>
+            <img id="ImageAfternoon" src="{{  url_for('static', filename='Sun.png') }}"/>
+        </div>
+
+        <div class="other">
+            <p id="TimeNext">Inte uppdaterad</p>
+            <p id="TempNext">Inte uppdaterad</p>
+            <img id="ImageNext" src="{{  url_for('static', filename='Sun.png') }}"/>
+        </div>
+    </div>
+</div>
+
+<script>
+function update_weather() {
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            var alldata = JSON.parse(xhttp.responseText);
+
+            document.getElementById("TimeNow").innerHTML = "Vädret just nu klockan " + alldata["nu"]["tid"];
+            document.getElementById("TempNow").innerHTML = alldata["nu"]["temp"] + " °C";
+            document.getElementById("TimeNext").innerHTML = "Vädret om en timme klockan " + alldata["sen"]["tid"];
+            document.getElementById("TempNext").innerHTML = alldata["sen"]["temp"] + " °C";
+            document.getElementById("TimeAfternoon").innerHTML = "Eftermiddagen vid " +  alldata["em"]["tid"];
+            document.getElementById("TempAfternoon").innerHTML = alldata["em"]["temp"] + " °C";
+
+
+            if (alldata["nu"]["moln"] <= 2 && alldata["nu"]["regn"] == 0)
+            {
+                document.getElementById("ImageNow").src="{{  url_for('static', filename='Sun.png') }}";
+            }
+
+            if (alldata["sen"]["moln"] <= 2 && alldata["sen"]["regn"] == 0)
+            {
+                document.getElementById("ImageNext").src="{{  url_for('static', filename='Sun.png') }}";
+            }
+
+            if (alldata["em"]["moln"] <= 2 && alldata["em"]["regn"] == 0)
+            {
+                document.getElementById("ImageAfternoon").src="{{  url_for('static', filename='Sun.png') }}";
+            }
+
+
+            if (alldata["nu"]["moln"] <= 2 && alldata["nu"]["regn"] == 1)
+            {
+                document.getElementById("ImageNow").src="{{  url_for('static', filename='SunnyRain.png') }}";
+            }
+
+            if (alldata["sen"]["moln"] <= 2 && alldata["sen"]["regn"] == 1)
+            {
+                document.getElementById("ImageNext").src="{{  url_for('static', filename='SunnyRain.png') }}";
+            }
+
+            if (alldata["em"]["moln"] <= 2 && alldata["em"]["regn"] == 1)
+            {
+                document.getElementById("ImageAfternoon").src="{{  url_for('static', filename='SunnyRain.png') }}";
+            }
+
+
+            if (alldata["nu"]["moln"] >= 3 && alldata["nu"]["regn"] == 0 )
+            {
+                document.getElementById("ImageNow").src="{{  url_for('static', filename='CloudySun.png') }}";
+            }
+
+            if (alldata["sen"]["moln"] >= 3 && alldata["sen"]["regn"] == 0)
+            {
+                document.getElementById("ImageNext").src="{{  url_for('static', filename='CloudySun.png') }}";
+            }
+
+            if (alldata["em"]["moln"] >= 3 && alldata["em"]["regn"] == 0)
+            {
+                document.getElementById("ImageAfternoon").src="{{  url_for('static', filename='CloudySun.png') }}";
+            }
+
+
+            if (alldata["nu"]["moln"] >= 6)
+            {
+                document.getElementById("ImageNow").src="{{  url_for('static', filename='Cloud.png') }}";
+            }
+
+            if (alldata["sen"]["moln"] >= 6)
+            {
+                document.getElementById("ImageNext").src="{{  url_for('static', filename='Cloud.png') }}";
+            }
+
+            if (alldata["em"]["moln"] >= 6)
+            {
+                document.getElementById("ImageAfternoon").src="{{  url_for('static', filename='Cloud.png') }}";
+            }
+
+
+            if (alldata["nu"]["regn"] == 1)
+            {
+                document.getElementById("ImageNow").src="{{  url_for('static', filename='Rain.png') }}";
+            }
+
+            if (alldata["sen"]["regn"] == 1)
+            {
+                document.getElementById("ImageNext").src="{{  url_for('static', filename='Rain.png') }}";
+            }
+
+            if (alldata["em"]["regn"] == 1)
+            {
+                document.getElementById("ImageAfternoon").src="{{  url_for('static', filename='Rain.png') }}";
+            }
+
+
+            if (alldata["nu"]["regn"] == 2)
+            {
+                document.getElementById("ImageNow").src="{{  url_for('static', filename='Snow.png') }}";
+            }
+
+            if (alldata["sen"]["regn"] == 2)
+            {
+                document.getElementById("ImageNext").src="{{  url_for('static', filename='Snow.png') }}";
+            }
+
+            if (alldata["em"]["regn"] == 2)
+            {
+                document.getElementById("ImageAfternoon").src="{{  url_for('static', filename='Snow.png') }}";
+            }
+        }
+    };
+
+    xhttp.open("GET", "/api/v1/weather", true);
+    xhttp.send();
+
+    setInterval(update_weather, 1800000);
+}
+
+update_weather();
+
+</script>
