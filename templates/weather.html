@@ -1,5 +1,5 @@
 <head>
-    <link rel="stylesheet"  href="{{  url_for('static', filename='pure.css') }}">
+    <link rel="stylesheet"  href="{{  url_for('static', filename='animate.css') }}">
 </head>
 
 <style>
@@ -16,11 +16,14 @@
     font-size: 38px;
     width: 600px;
     height: 600px;
-    background: #0fb8ad; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* Standard syntax */
+    background: rgb(210,255,82); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(210,255,82,1) 0%, rgba(145,232,66,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(210,255,82,1) 0%,rgba(145,232,66,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(210,255,82,1) 0%,rgba(145,232,66,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ff52', endColorstr='#91e842',GradientType=0 ); /* IE6-9 */
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    animation-delay: 1s;
 }
 
 .other
@@ -36,29 +39,39 @@
     font-size: 28px;
     width: 500px;
     height: 500px;
-    background: #1fc8db; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(-141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(-141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(-141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(-141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); /* Standard syntax */
+    background: rgb(210,255,82); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(210,255,82,1) 0%, rgba(145,232,66,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(210,255,82,1) 0%,rgba(145,232,66,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(210,255,82,1) 0%,rgba(145,232,66,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ff52', endColorstr='#91e842',GradientType=0 ); /* IE6-9 */
+    -webkit-animation-delay: 1.2s;
+    -moz-animation-delay: 1.2s;
+    animation-delay: 1.2s;
+}
+
+#weather img
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 </style>
 
 <div class="page">
     <div id="weather">
-        <div id="now">
+        <div class="animated fadeInDown" id="now">
             <p id="TimeNow">Inte uppdaterad</p>
             <p id="TempNow">Inte uppdaterad</p>
-            <img id="ImageNow" src="{{  url_for('static', filename='Sun.png') }}"/>
+            <img class="animated infinite pulse" id="ImageNow" src="{{  url_for('static', filename='Sun.png') }}"/>
         </div>
 
-        <div class="other">
+        <div  class="animated fadeInDown other">
             <p id="TimeAfternoon">Inte uppdaterad</p>
-            <p id="TempAfternoon">Inte uppdaterad</p>
+            <p id="Temp Afternoon">Inte uppdaterad</p>
             <img id="ImageAfternoon" src="{{  url_for('static', filename='Sun.png') }}"/>
         </div>
 
-        <div class="other">
+        <div class="animated fadeInDown other">
             <p id="TimeNext">Inte uppdaterad</p>
             <p id="TempNext">Inte uppdaterad</p>
             <img id="ImageNext" src="{{  url_for('static', filename='Sun.png') }}"/>
